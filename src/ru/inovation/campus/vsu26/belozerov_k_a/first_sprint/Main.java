@@ -5,24 +5,35 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
         String castle = "\uD83C\uDFF0";
-        int sizeBoard = 5;
+        int sizeBoard = 8;
+
         Person person = new Person(sizeBoard);
+
+
         int step = 0;
+
         String[][] board = new String[sizeBoard][sizeBoard];
         for (int y = 0; y < sizeBoard; y++) {
             for (int x = 0; x < sizeBoard; x++) {
                 board[y][x] = "  ";
             }
         }
-        int count_monster = sizeBoard * sizeBoard - sizeBoard - 5;
+
+
+        int countMonster = sizeBoard * sizeBoard - sizeBoard - 5;
         Random r = new Random();
 
-        Monster[] arrMonster = new Monster[count_monster + 1];
+        Monster[] arrMonster = new Monster[countMonster + 1];
         int count = 0;
         Monster test;
-        while (count <= count_monster){
-            test = new Monster(sizeBoard);
+        while (count <= countMonster){
+            if (r.nextBoolean()) {
+                test = new Monster(sizeBoard);
+            }else {
+                test = new BigMonster(sizeBoard);
+            }
             if (board[test.getY()][test.getX()].equals("  ")){
                 board[test.getY()][test.getX()] = test.getImage();
                 arrMonster[count] = test;
@@ -31,7 +42,6 @@ public class Main {
 
         }
 
-        r = null;
         int castleX = r.nextInt(sizeBoard);
         int castleY = 0;
 
@@ -43,6 +53,10 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         String answer = sc.nextLine();
         System.out.println("Ваш ответ:\t" + answer);
+
+
+
+
         switch (answer) {
             case "ДА" -> {
                 System.out.println("Выбери сложность игры(от 1 до 5):");
@@ -55,6 +69,8 @@ public class Main {
                             "\nКоординаты персонажа - (x: " + person.getX() + ", y: " + person.getY() + "))");
                     int x = sc.nextInt();
                     int y = sc.nextInt();
+
+                    // проверка
                     if (person.moveCorrect(x, y)) {
                         String next = board[y - 1][x - 1];
                         if (next.equals("  ")) {
@@ -91,11 +107,10 @@ public class Main {
 
     }
 
-
     static void outputBoard(String[][] board, int live) {
         String leftBlock = "| ";
         String rightBlock = "|";
-        String wall = "+ —— + —— + —— + —— + —— +";
+        String wall = "+ —— + —— + —— + —— + —— + —— + —— + —— +";
 
         for (String[] raw : board) {
             System.out.println(wall);
