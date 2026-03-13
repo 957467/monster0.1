@@ -2,25 +2,19 @@ package ru.inovation.campus.vsu26.belozerov_k_a.first_sprint;
 
 import java.util.Scanner;
 
-class BigMonster extends Monster{
+public class BigMonster extends Monster{
 
         private String image = "\uD83D\uDC79";
-
         BigMonster(int sizeBoard) {
             super(sizeBoard);
         }
-
-        //    @Override
         public String getImage() {
             return image;
         }
-
-        //    @Override
         public void setImage(String image) {
             this.image = image;
         }
 
-        // переопредилим метод:
         @Override
         public boolean taskMonster(int difficultGame){
             System.out.println("Решите задачу:");
